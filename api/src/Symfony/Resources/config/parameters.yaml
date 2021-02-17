@@ -1,0 +1,9 @@
+parameters:
+  app.secret: '%env(APP_SECRET)%'
+  db.user: '%env(DB_USER)%'
+  db.pass: '%env(DB_PASS)%'
+  db.host: '%env(DB_HOST)%'
+  db.port: '%env(DB_PORT)%'
+  db.name: '%env(DB_NAME)%'
+  db.url: 'mysql://%db.user%:%db.pass%@%db.host%:%db.port%/%db.name%'
+  bookapi.url: '%env(BOOK_API_URL)%'

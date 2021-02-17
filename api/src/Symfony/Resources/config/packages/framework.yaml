@@ -1,0 +1,15 @@
+framework:
+  secret: '%app.secret%'
+
+  session:
+    handler_id: null
+    cookie_secure: auto
+    cookie_samesite: lax
+
+  php_errors:
+    log: true
+
+  http_client:
+    scoped_clients:
+      book.client:
+        base_uri: '%bookapi.url%'

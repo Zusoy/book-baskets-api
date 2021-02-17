@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+
+  App\Adapter\Repository\:
+    resource: '%kernel.project_dir%/src/Adapter/Repository'
+
+
+  App\Domain\Repository\Baskets: '@App\Adapter\Repository\Baskets'
+  App\Domain\Repository\Books: '@App\Adapter\Repository\Books'
+
+  App\Adapter\Transaction: ~
+  App\Domain\Transaction: '@App\Adapter\Transaction'

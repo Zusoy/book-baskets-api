@@ -1,0 +1,19 @@
+imports:
+  - { resource: 'parameters.yaml' }
+  - { resource: 'services/adapters.yaml' }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Symfony\Controller\:
+    resource: '%kernel.project_dir%/src/Symfony/Controller'
+    tags: ['controller.service_arguments']
+
+  App\Domain\CommandHandler\:
+    resource: '%kernel.project_dir%/src/Domain/CommandHandler/'
+    tags: ['app.command.handler']
+
+  App\Domain\CommandBus:
+    arguments: [!tagged app.command.handler]

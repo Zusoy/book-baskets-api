@@ -1,0 +1,12 @@
+App\Domain\Model\Basket:
+  type: entity
+
+  embedded:
+    id:
+      class: App\Domain\Model\Identifier
+      columnPrefix: false
+
+  fields:
+    books:
+      type: simple_array
+

@@ -1,0 +1,10 @@
+get_baskets:
+  path: /api/baskets
+  methods: GET
+  controller: App\Symfony\Controller\Api\BasketController::getBaskets
+
+
+post_baskets:
+  path: /api/baskets
+  methods: POST
+  controller: App\Symfony\Controller\Api\BasketController::postBaskets

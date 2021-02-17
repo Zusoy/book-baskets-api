@@ -1,0 +1,9 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: Time of Account API
+      description: API of "Time of Account" application.
+      version: 1.0.0
+  areas:
+    path_patterns:
+      - ^/api/v1/*

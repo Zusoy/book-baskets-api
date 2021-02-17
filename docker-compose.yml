@@ -1,0 +1,23 @@
+version: '2.4'
+
+services:
+  server:
+    container_name: server
+    build:
+      context: server
+
+  api:
+    container_name: api
+    build:
+      context: api
+      target: prod
+    env_file: .env
+
+  database:
+    container_name: database
+    build:
+      context: database
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}

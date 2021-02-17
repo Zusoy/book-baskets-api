@@ -1,0 +1,98 @@
+#!/usr/bin/env php
+<?php require_once __DIR__.'/../vendor/autoload.php';
+
+use App\Symfony\Kernel;
+use App\Persistence\Faker\Factory;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Generator;
+use App\Domain\Model\MonthlyReport;
+
+const REPORTS_COUNT = 3;
+const RECIPES_COUNT = 25;
+const EXPENSES_COUNT = 15;
+const TRANSMISSION_COUNT = 2;
+
+/**
+ * Insert Monthly Reports
+ *
+ * @return array<MonthlyReport>
+ */
+function insertMonthlyReports(ObjectManager $em, Generator $faker): array
+{
+	$reports = [];
+
+	for ($i = 1; $i <= REPORTS_COUNT; $i++)
+	{
+		$em->persist($reports[] = $faker->_monthlyReport());
+	}
+
+	$em->flush();
+
+	return $reports;
+}
+
+/**
+ * Insert Recipes
+ *
+ * @param array<MonthlyReport> $monthlyReports
+ */
+function insertRecipes(ObjectManager $em, Generator $faker, array $monthlyReports): void
+{
+	for ($i = 1; $i <= RECIPES_COUNT; $i++)
+	{
+		$em->persist($faker->_recipe($monthlyReports));
+	}
+
+	$em->flush();
+}
+
+/**
+ * Insert Transmissions
+ */
+function insertTransmissions(ObjectManager $em, Generator $faker): void
+{
+  // Create Transmissions
+  for ($i = 1; $i <= TRANSMISSION_COUNT; $i++)
+  {
+    $em->persist($faker->_transmission());
+  }
+
+  $em->flush();
+}
+
+/**
+ * Insert Expenses
+ *
+ * @param array<MonthlyReport> $monthlyReports
+ */
+function insertExpenses(ObjectManager $em, Generator $faker, array $monthlyReports): void
+{
+  for ($i = 1; $i <= EXPENSES_COUNT; $i++)
+  {
+    $em->persist($faker->_expense($monthlyReports));
+  }
+
+  $em->flush();
+}
+
+/**
+ * Insert App Fixtures
+ */
+function insertFixtures(): void
+{
+	$kernel = new Kernel('dev', false);
+	$kernel->boot();
+
+	/** @var ObjectManager */
+	$manager = $kernel->getContainer()->get('doctrine')->getManager();
+	$faker = Factory::create();
+
+  $monthlyReports = insertMonthlyReports($manager, $faker);
+  insertRecipes($manager, $faker, $monthlyReports);
+  insertExpenses($manager, $faker, $monthlyReports);
+  insertTransmissions($manager, $faker);
+}
+
+insertFixtures();
+
+return 0;

@@ -1,0 +1,22 @@
+doctrine:
+  dbal:
+    url: '%db.url%'
+    driver: pdo_mysql
+    server_version: '5.7'
+    charset: utf8mb4
+    default_table_options:
+      charset: utf8mb4
+      collate: utf8mb4_unicode_ci
+    types:
+      uuid: App\Persistence\DBAL\Types\UUIDType
+
+  orm:
+    auto_generate_proxy_classes: true
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    mappings:
+      App:
+        is_bundle: false
+        type: yml
+        dir: '%kernel.project_dir%/src/Persistence/Resources/mapping'
+        prefix: App\Domain\Model
+        alias: Model
